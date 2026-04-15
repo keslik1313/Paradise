@@ -94,7 +94,7 @@ Adjacency (to turf):
 		return TRUE
 	if(neighbor?.loc == src)
 		return TRUE
-	if(isitem(loc))
+	if(isitem(loc) || is_item_stack(loc))
 		if(recurse > 0)
 			return loc.Adjacent(neighbor, target, mover, recurse - 1)
 		return FALSE

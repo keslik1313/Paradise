@@ -20,9 +20,11 @@
 	if(isnull(uid))
 		return FALSE
 
-	if(!source_turf.Adjacent(user)) // Source tile is no longer valid
-		reset_contents()
-		return FALSE
+	for(var/atom/atom as anything in source_atoms)
+		var/turf/atom_turf = get_turf(atom)
+		if(!atom_turf.Adjacent(user)) // Source tile is no longer valid
+			reset_contents()
+			return FALSE
 
 	var/datum/search_object/index = locateUID(uid)
 	var/atom/thing = index?.item
@@ -30,8 +32,15 @@
 	if(QDELETED(index) || QDELETED(thing)) // Obj is gone
 		return FALSE
 
-	if(thing != source_turf && !(locate(thing) in source_turf.contents))
-		qdel(index) // Item has moved
+	var/found_thing_in_source_atoms = (thing in source_atoms)
+	if(!found_thing_in_source_atoms)
+		for(var/atom/atom as anything in source_atoms)
+			if(thing in atom.contents)
+				found_thing_in_source_atoms = TRUE
+				break
+
+	if(!found_thing_in_source_atoms)
+		qdel(index)
 		return TRUE
 
 	var/modifiers = ""

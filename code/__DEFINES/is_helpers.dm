@@ -17,6 +17,8 @@
 
 #define IS_WEAKREF_OF(thing, potential_weakref) (isdatum(thing) && !isnull(potential_weakref) && thing.weak_reference == potential_weakref)
 
+#define is_item_stack(A) (istype(A, /atom/movable/item_stack))
+
 // Mobs
 
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)

@@ -12,8 +12,8 @@
 	var/list/datum/search_object/to_image = list()
 	/// We've been notified about client version
 	var/notified = FALSE
-	/// The turf being searched
-	var/turf/source_turf
+	/// The atoms being searched
+	var/list/source_atoms = list()
 
 /datum/lootpanel/New(client/owner)
 	. = ..()
@@ -23,7 +23,7 @@
 /datum/lootpanel/Destroy(force)
 	reset_contents()
 	owner = null
-	source_turf = null
+	source_atoms = null
 
 	return ..()
 
@@ -40,7 +40,7 @@
 /datum/lootpanel/ui_close(mob/user)
 	. = ..()
 
-	source_turf = null
+	source_atoms = null
 	reset_contents()
 
 /datum/lootpanel/ui_data(mob/user)
@@ -57,21 +57,23 @@
 
 	if(isAI(user) && !user.stat)
 		var/mob/living/silicon/ai/AI = user
-		if(AI.can_see(source_turf))
-			return UI_INTERACTIVE
+		for(var/atom/atom as anything in source_atoms)
+			if(AI.can_see(atom))
+				return UI_INTERACTIVE
 		return UI_CLOSE
 
 	if(user.incapacitated())
 		return UI_DISABLED
 
-	var/dist = get_dist(source_turf, user)
-	if(dist <= 1)
-		return UI_INTERACTIVE
+	for(var/atom/atom as anything in source_atoms)
+		var/dist = get_dist(atom, user)
+		if(dist <= 1)
+			return UI_INTERACTIVE
 
-	else if(dist <= 6)
-		return UI_UPDATE
+		else if(dist <= 6)
+			return UI_UPDATE
 
-	return UI_CLOSE
+		return UI_CLOSE
 
 /datum/lootpanel/ui_act(action, list/params)
 	. = ..()

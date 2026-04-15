@@ -558,6 +558,7 @@
 ////////////////////////////////////////////////////
 
 /turf/acid_act(acidpwr, acid_volume)
+	..()
 	. = TRUE
 	var/acid_type = /obj/effect/acid
 	if(acidpwr >= 200) //alien acid power

@@ -219,6 +219,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 /// The obj's reaction when touched by acid
 /obj/acid_act(acidpwr, acid_volume)
+	..()
 	if(!(resistance_flags & UNACIDABLE) && acid_volume)
 
 		if(!acid_level)
@@ -238,6 +239,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		take_damage(min(1 + round(sqrt(acid_level) * 0.3), 300), BURN, "acid", 0)
 
 	acid_level = max(acid_level - (5 + 3 * round(sqrt(acid_level))), 0)
+	SEND_SIGNAL(src, COMSIG_OBJ_ACID_PROCESSING, acid_level)
 	if(!acid_level)
 		return FALSE
 
@@ -276,6 +278,8 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		resistance_flags &= ~ON_FIRE
 		cut_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay, TRUE)
 		SSfires.processing -= src
+
+	SEND_SIGNAL(src, COMSIG_OBJ_EXTINGUISH)
 
 /// Called when the obj is hit by a tesla bolt.
 /obj/zap_act(power, zap_flags)

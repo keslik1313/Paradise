@@ -929,6 +929,10 @@
 #define COMSIG_SINK_ACT "sink_act"
 	/// returns on succes of species special sink_act()
 	#define COMSIG_SINK_ACT_SUCCESS (1<<0)
+/// Sent on object extinquish (/obj/proc/extinguish())
+#define COMSIG_OBJ_EXTINGUISH "obj_extinguish"
+/// Sent on object acid processing (/obj/proc/acid_processing())
+#define COMSIG_OBJ_ACID_PROCESSING "obj_acid_processing"
 
 // /obj/machinery signals
 

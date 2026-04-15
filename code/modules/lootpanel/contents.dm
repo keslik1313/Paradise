@@ -11,24 +11,26 @@
 	if(length(contents))
 		reset_contents()
 
-	// Add source turf first
-	var/datum/search_object/source = new(owner, source_turf)
-	add_to_index(source)
+	// Add source atoms first
+	for(var/atom/atom as anything in source_atoms)
+		var/datum/search_object/source = new(owner, atom)
+		add_to_index(source)
 
-	for(var/atom/thing as anything in source_turf.contents)
-		// validate
-		if(thing.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
-			continue
-		if(thing.IsObscured())
-			continue
-		if(thing.invisibility > owner.mob.see_invisible)
-			continue
-		if(!thing.name)
-			continue
+	for(var/atom/atom as anything in source_atoms)
+		for(var/atom/thing as anything in atom.contents)
+			// validate
+			if(thing.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
+				continue
+			if(thing.IsObscured())
+				continue
+			if(thing.invisibility > owner.mob.see_invisible)
+				continue
+			if(!thing.name)
+				continue
 
-		// convert
-		var/datum/search_object/index = new(owner, thing)
-		add_to_index(index)
+			// convert
+			var/datum/search_object/index = new(owner, thing)
+			add_to_index(index)
 
 	var/datum/tgui/window = SStgui.get_open_ui(owner.mob, src)
 	window?.send_update()

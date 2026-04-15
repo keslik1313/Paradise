@@ -1,6 +1,9 @@
 /// Helper to open the panel
-/datum/lootpanel/proc/open(turf/tile)
-	source_turf = tile
+/datum/lootpanel/proc/open(list/atoms)
+	if(!islist(atoms))
+		source_atoms = list(atoms)
+	else
+		source_atoms = atoms
 
 #if !defined(OPENDREAM) && !defined(GAME_TESTS)
 	if(!notified)
