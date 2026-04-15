@@ -1485,6 +1485,9 @@
 ///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
 
+/// Called when the round has started, but before GAME_STATE_PLAYING.
+#define COMSIG_TICKER_ROUND_STARTING "comsig_ticker_round_starting"
+
 /// Called on a mob when they start riding a vehicle (obj/vehicle)
 #define COMSIG_VEHICLE_RIDDEN "vehicle-ridden"
 	/// Return this to signal that the mob should be removed from the vehicle
@@ -1627,6 +1630,9 @@
 #define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"
 
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
+
+/// job datum has been called to deal with the aftermath of a spawn
+#define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
 
 /// from internal loop in /atom/proc/propagate_radiation_pulse: (atom/pulse_source)
 #define COMSIG_ATOM_PROPAGATE_RAD_PULSE "atom_propagate_radiation_pulse"
