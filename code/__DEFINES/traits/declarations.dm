@@ -518,6 +518,8 @@
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
 
+/// If a human has a fracture in their legs or feet (for optimization)
+#define TRAIT_FRACTURE_FALL "fracture_fall"
 /// Suppression implant trait
 #define TRAIT_MARTIAL_ARTS_SUPPRESSED "martial_arts_suppressed"
 
