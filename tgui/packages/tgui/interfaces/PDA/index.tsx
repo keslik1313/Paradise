@@ -1,8 +1,9 @@
+/* This is all basically stolen from routes.js. */
 import { useState } from 'react';
-import { useBackend } from '../../backend';
-import { Box, Button, Section, Icon } from '../../components';
-import { Window } from '../../layouts';
 import { routingError } from '../../routes';
+import { useBackend } from '../../backend';
+import { Button, Box, Section, Stack, Icon } from '../../components';
+import { Window } from '../../layouts';
 
 const PDA_UI = {
   window: {
@@ -14,7 +15,7 @@ const PDA_UI = {
 const RequirePDAInterface = require.context('.', false, /\.tsx$/);
 
 const THEME_MAP: Record<string, string> = {
-  pda_bank: 'raingor_company',
+  'pda_bank': 'raingor_company',
 };
 
 const THEME_NAMES: Record<string, string> = {
@@ -53,12 +54,10 @@ const GetApp = (name) => {
     }
     throw err;
   }
-
   const Component = appModule[name];
   if (!Component) {
     return routingError('missingExport', name);
   }
-
   return Component;
 };
 
